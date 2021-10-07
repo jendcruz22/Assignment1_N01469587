@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -9,24 +10,30 @@ namespace WebApplication1.Controllers
 {
     public class FortNightController : ApiController
     {
-        public string Get(string id)
+        public string[] Get(string id)
         {
             // Calculate number of fortnights
-            double fortnights = (Int32.Parse(id) / 14)+1;
+            decimal fortnights = (Int32.Parse(id) / 14)+1;
 
             // Calculate cost of stay with respect to number of fortights
-            double costPerNight = Math.Round((fortnights * 5.50),2);
+            decimal costPerNight = Math.Round(Decimal.Multiply(fortnights, (decimal)5.50),2);
 
             // Calculate Tax Amount
-            double taxAmount = Math.Round((costPerNight * 0.13),2);
+            decimal taxAmount = Math.Round(Decimal.Multiply(costPerNight, (decimal)0.13),2);
 
             // Calculate Total Amount
-            double totalAmount = Math.Round((taxAmount + costPerNight),2);
+            decimal totalAmount = Math.Round((taxAmount + costPerNight),2);
+
+            // Culture property changed to US
+            CultureInfo.CurrentCulture = new CultureInfo("en-US", false);
 
             // Print output
-            string output = fortnights + " fortnights at $5.50/FN = $" + costPerNight + "CAD \n HST 13% = $" + taxAmount + "CAD \n Total = $" + totalAmount + "CAD";
-            
-            return output;
+            string costPerFortNight = fortnights + " fortnights at $5.50/FN = " + costPerNight.ToString("C", CultureInfo.CurrentCulture) + "CAD";
+            string totalTax = "HST 13% = " + string.Format("{0:C}", taxAmount) + "CAD";
+            string finalAmount = "Total = " + string.Format("{0:C}", totalAmount) + "CAD";
+
+            return new string[] {costPerFortNight, totalTax, finalAmount};
+          
         }
     }
 }
