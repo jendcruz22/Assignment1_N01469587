@@ -10,7 +10,12 @@ namespace WebApplication1.Controllers
 {
     public class FortNightController : ApiController
     {
-        public string[] Get(string id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IEnumerable<string> Get(string id)
         {
             // Calculate number of fortnights
             decimal fortnights = (Int32.Parse(id) / 14)+1;
@@ -28,12 +33,12 @@ namespace WebApplication1.Controllers
             CultureInfo.CurrentCulture = new CultureInfo("en-US", false);
 
             // Print output
-            string costPerFortNight = fortnights + " fortnights at $5.50/FN = " + costPerNight.ToString("C", CultureInfo.CurrentCulture) + "CAD";
+            string costPerFortNight = fortnights + " fortnights at $5.50/FN = " + string.Format("{0:C}", costPerNight) + "CAD";
             string totalTax = "HST 13% = " + string.Format("{0:C}", taxAmount) + "CAD";
             string finalAmount = "Total = " + string.Format("{0:C}", totalAmount) + "CAD";
 
-            return new string[] {costPerFortNight, totalTax, finalAmount};
-          
+            return new string[] { costPerFortNight, totalTax, finalAmount };
+
         }
     }
 }

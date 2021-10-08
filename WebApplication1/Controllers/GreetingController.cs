@@ -9,9 +9,19 @@ namespace WebApplication1.Controllers
 {
     public class GreetingController : ApiController
     {
+        [HttpGet]
         public string Get(string id)
         {
             return id;
         }
+
+        [HttpPost]
+        public string Post()
+        {
+            return "Hello World";
+        }
     }
+    
+    
+        
 }
