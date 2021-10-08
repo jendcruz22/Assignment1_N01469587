@@ -11,10 +11,14 @@ namespace WebApplication1.Controllers
     public class FortNightController : ApiController
     {
         /// <summary>
-        /// 
+        /// Calculate hosting cost for a customer's stay depending on the duration of their stay.
         /// </summary>
+        /// <example>GET api/fortnight/14 -> "2 fortnights at $5.50/FN = $11.00 CAD”
+        ///                                 “HST 13% = $1.43 CAD”
+        ///                                 “Total = $12.43 CAD” </example>
+        /// 
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>The total cost of hosting based on duration of stay (per fortnight) after tax.</returns>
         public IEnumerable<string> Get(string id)
         {
             // Calculate number of fortnights

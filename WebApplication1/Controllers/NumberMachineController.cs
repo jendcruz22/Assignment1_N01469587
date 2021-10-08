@@ -9,6 +9,12 @@ namespace WebApplication1.Controllers
 {
     public class NumberMachineController : ApiController
     {
+        /// <summary>
+        /// This method performs 4 arithmetic operations on a given number i.e division, subtraction, multiplication, addition
+        /// <example>GET api/numbermachine/-20 -> 420</example>
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Final value calculated after arithmetic operations</returns>
         public decimal Get(decimal id)
         {
             decimal operation1 = id/2;
